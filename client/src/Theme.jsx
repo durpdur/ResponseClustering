@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#c0e3ff',
+      light: '#e5f4ff',
       main: '#c0e3ff',
       dark: '#2554b0',
       contrastText: '#3858e9',
@@ -16,20 +16,17 @@ const theme = createTheme({
     },
   },
   
+  typography: {
+    fontFamily: '"Google Sans Code", "Lato", sans-serif',
+  },
+
   components: {
-    MuiTypography: {
-      defaultProps: {
-        variantMapping: {
-          h1: 'h2',
-          h2: 'h2',
-          h3: 'h2',
-          h4: 'h2',
-          h5: 'h2',
-          h6: 'h2',
-          subtitle1: 'h2',
-          subtitle2: 'h2',
-          body1: 'span',
-          body2: 'span',
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          "&:hover": {
+            backgroundColor: "#ffffff",
+          },
         },
       },
     },

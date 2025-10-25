@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 import Navbar from './components/Navbar'
+import HeroSection from './components/HeroSection'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -9,7 +10,8 @@ function App() {
   return (
     <>
       <Navbar/>
-      <h1>Hello</h1>
+      <HeroSection/>
+      <h1>weiongeiowoiwngioeninioewngiowengioewioneoiwnwi</h1>
     </>
   )
 }

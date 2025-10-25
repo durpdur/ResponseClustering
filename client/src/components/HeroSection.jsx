@@ -1,0 +1,48 @@
+import { Box, Typography, TextField, Button, Stack } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+
+function HeroSection() {
+  return (
+    <Box
+      sx={{
+        backgroundColor: "primary.light",
+        color: "primary.contrastText",
+        minHeight: "55vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "left",
+        justifyContent: "center",
+        textAlign: "left",
+        padding: "10vw",
+      }}
+    >
+        <Typography variant="h3">
+            Find response cluster
+        </Typography>
+        <Typography variant="subtitle1" sx={{color: "black", fontWeight: "100"}}>
+            Search through clusters by name
+        </Typography>
+
+      <Stack direction="row" spacing={1}>
+        <TextField
+          variant="outlined"
+          placeholder="Search..."
+          size="normal"
+          sx={{
+            backgroundColor: "white",
+            minWidth: "25em",
+            maxWidth: "30vw",
+          }}
+        />
+        <Button 
+          variant="contained"
+          sx={{
+            maxHeight: "4em",
+          }}
+        ><SearchIcon/> Search</Button>
+      </Stack>
+    </Box>
+  );
+}
+
+export default HeroSection
