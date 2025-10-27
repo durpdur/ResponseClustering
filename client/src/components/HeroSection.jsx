@@ -1,7 +1,7 @@
 import { Box, Typography, TextField, Button, Stack } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
-function HeroSection() {
+function HeroSection({ clusterQuery, setClusterQuery }) {
   return (
     <Box
       sx={{
@@ -33,6 +33,9 @@ function HeroSection() {
             minWidth: "25em",
             maxWidth: "30vw",
           }}
+
+          value={clusterQuery}
+          onChange={(inputVal) => setClusterQuery(inputVal.target.value)}
         />
         <Button 
           variant="contained"
