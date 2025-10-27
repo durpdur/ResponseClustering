@@ -3,15 +3,16 @@ import './App.css'
 
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
+import ClusterGrid from './components/ClusterGrid'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [clusters, setClusters] = useState(Array.from({ length: 5 }, (_, i) => i));
 
   return (
     <>
       <Navbar/>
       <HeroSection/>
-      <h1>weiongeiowoiwngioeninioewngiowengioewioneoiwnwi</h1>
+      <ClusterGrid clusters={clusters} setClusters={setClusters}/>
     </>
   )
 }
