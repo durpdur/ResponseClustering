@@ -1,5 +1,5 @@
 # Component Structure
-App.tsx
+App.jsx
 - Navbar
 - HeroSection
 - ClusterGrid
