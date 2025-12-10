@@ -1,0 +1,81 @@
+/* Cluster.module.css */
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.hoverCardWrapper {
+  width: 90%;
+  background-color: #ffffff;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+
+  position: absolute;
+  bottom: -9rem;
+  margin-inline: auto;
+
+  opacity: 0;
+  transition: opacity 1s 1s;
+  z-index: 10;
+}
+
+/* Hover animations */
+
+.wrapper:hover .hoverCardWrapper {
+  animation: show-data 1s forwards;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.wrapper:hover {
+  animation: remove-overflow 2s forwards;
+}
+
+.wrapper:not(:hover) {
+  animation: show-overflow 2s forwards;
+}
+
+.wrapper:not(:hover) .hoverCardWrapper {
+  animation: remove-data 1s forwards;
+}
+
+/* Keyframes */
+
+@keyframes show-data {
+  50% {
+    transform: translateY(-10rem);
+  }
+  100% {
+    transform: translateY(-7rem);
+  }
+}
+
+@keyframes remove-overflow {
+  to {
+    overflow: initial;
+  }
+}
+
+@keyframes remove-data {
+  0% {
+    transform: translateY(-7rem);
+  }
+  50% {
+    transform: translateY(-10rem);
+  }
+  100% {
+    transform: translateY(0.5rem);
+  }
+}
+
+@keyframes show-overflow {
+  0% {
+    overflow: initial;
+    pointer-events: none;
+  }
+  50% {
+    overflow: hidden;
+  }
+}

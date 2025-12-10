@@ -16,12 +16,12 @@ function HeroSection({ clusterQuery, setClusterQuery }) {
         padding: "10vw",
       }}
     >
-        <Typography variant="h3">
-            Find response cluster
-        </Typography>
-        <Typography variant="subtitle1" sx={{color: "black", fontWeight: "100", margin: "1em 0em"}}>
-            Search through clusters by name
-        </Typography>
+      <Typography variant="h3">
+          Find response cluster
+      </Typography>
+      <Typography variant="subtitle1" sx={{color: "black", fontWeight: "100", margin: "1em 0em"}}>
+          Search through clusters by name
+      </Typography>
 
       <Stack direction="row" spacing={1} alignContent={"center"}>
         <TextField
@@ -44,8 +44,11 @@ function HeroSection({ clusterQuery, setClusterQuery }) {
             minWidth: "7em",
             borderRadius: "36px",
           }}
-        ><SearchIcon/> Search</Button>
+        >
+          <SearchIcon/> Search
+        </Button>
       </Stack>
+      
     </Box>
   );
 }

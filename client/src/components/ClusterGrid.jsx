@@ -1,16 +1,9 @@
-import { useState } from 'react'
 import { Box, Typography, Grid, Stack } from "@mui/material";
-import Cluster from "./Cluster";
+import Cluster from "./Cluster/Cluster";
 import AddIcon from '@mui/icons-material/Add';
-import theme from "../Theme.jsx";
 
-function ClusterGrid({clusters, setClusters}) {
-    // Push a cluster to start of clusters(Array)
-    function addCluster () {
-        const newCluster = clusters.length + 1;
+function ClusterGrid({clusters, setClusters, addCluster}) {
 
-        setClusters(prev => [newCluster, ...prev]);
-    }
 
     return (
         <Grid container 
@@ -18,7 +11,8 @@ function ClusterGrid({clusters, setClusters}) {
             columns={{ xs: 1, sm: 4, md: 8, lg: 12}} 
             sx={{ margin: "5vw" }}
         >
-            <Grid size={{x: 2, sm: 4, md: 4}}>
+            {/* Add Cluster Button */}
+            <Grid size={{xs: 2, sm: 4, md: 4}}>
                     <Box 
                         onClick={addCluster}
                         sx={{
@@ -43,10 +37,16 @@ function ClusterGrid({clusters, setClusters}) {
                         </Stack>
                     </Box>
             </Grid>
-
-            {clusters.map((cluster, index) => (
-                <Grid key={index} size={{x: 2, sm: 4, md: 4}}>
-                    <Cluster title={`Cluster #${cluster}`}></Cluster>
+            
+            {/* Cluster mapping */}
+            {clusters.map((c, index) => (
+                <Grid key={index} size={{xs: 2, sm: 4, md: 4}}>
+                    <Cluster
+                        title={c.cluster_id}
+                        representative_mediod={c.representative_medoid_item}
+                        other_items={c.other_items_in_cluster}
+                        query={c.query}
+                    />
                 </Grid>
             ))}
         </Grid>
