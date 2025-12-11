@@ -8,47 +8,47 @@
 .hoverCardWrapper {
   width: 90%;
   background-color: #ffffff;
-  padding: 1.5rem 2rem;
+  padding: 1rem 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   border-radius: 1rem;
 
   position: absolute;
-  bottom: -9rem;
+  bottom: -12rem; /* Starting Position */
   margin-inline: auto;
 
   opacity: 0;
-  transition: opacity 1s 1s;
-  z-index: 10;
+  transition: opacity 0.7s 0.7s;
+  z-index: 1;
 }
 
 /* Hover animations */
 
 .wrapper:hover .hoverCardWrapper {
-  animation: show-data 1s forwards;
+  animation: show-data 0.7s forwards;
   opacity: 1;
   transition: opacity 0.3s;
 }
 
 .wrapper:hover {
-  animation: remove-overflow 2s forwards;
+  animation: remove-overflow 1s forwards;
 }
 
 .wrapper:not(:hover) {
-  animation: show-overflow 2s forwards;
+  animation: show-overflow 0.7s forwards;
 }
 
 .wrapper:not(:hover) .hoverCardWrapper {
-  animation: remove-data 1s forwards;
+  animation: remove-data 0.7s forwards;
 }
 
 /* Keyframes */
 
 @keyframes show-data {
   50% {
-    transform: translateY(-10rem);
+    transform: translateY(-13rem);
   }
   100% {
-    transform: translateY(-7rem);
+    transform: translateY(-10rem);
   }
 }
 
@@ -60,13 +60,13 @@
 
 @keyframes remove-data {
   0% {
-    transform: translateY(-7rem);
-  }
-  50% {
     transform: translateY(-10rem);
   }
+  50% {
+    transform: translateY(-13rem); /* Top of the "Bounce" Position */
+  }
   100% {
-    transform: translateY(0.5rem);
+    transform: translateY(0rem);
   }
 }
 

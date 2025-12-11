@@ -2,10 +2,11 @@ import { useState, useMemo, useEffect } from 'react'
 import './App.css'
 import '@xyflow/react/dist/style.css';
 
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar/Navbar'
 import HeroSection from './components/HeroSection'
 import ClusterGrid from './components/ClusterGrid'
-import FlowGraph from './components/FlowGraph'
+import FlowGraph from './components/FlowGraph/FlowGraph'
+import Toolbar from '@mui/material/Toolbar';
 
 function App() {
   const [clusterQuery, setClusterQuery] = useState("");
@@ -106,10 +107,12 @@ function App() {
 
   return (
     <>
-      {/* <FlowGraph /> */}
       <Navbar/>
-      <HeroSection clusterQuery={clusterQuery} setClusterQuery={setClusterQuery}/>
-      <ClusterGrid clusters={filteredClusters} setClusters={setClusters} addCluster={addCluster}/>
+      <FlowGraph/>
+      <div>
+        <HeroSection clusterQuery={clusterQuery} setClusterQuery={setClusterQuery}/>
+        <ClusterGrid clusters={filteredClusters} setClusters={setClusters} addCluster={addCluster}/>
+      </div>
     </>
   )
 }
