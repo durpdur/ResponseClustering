@@ -4,6 +4,14 @@ App.jsx
 - HeroSection
 - ClusterGrid
     - Clusters
+        - Hover Card
+
+- Flow Graph
+
+# TODO
+- Add graph using "medoid_item"
+    - Surround medoid item with "other_items"
+- Each card shows coordinates of their respective graph in the "Flow Graph" component
 
 
 # React + Vite
