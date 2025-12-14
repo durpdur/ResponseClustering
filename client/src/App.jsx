@@ -5,8 +5,9 @@ import '@xyflow/react/dist/style.css';
 import Navbar from './components/Navbar/Navbar'
 import HeroSection from './components/HeroSection'
 import ClusterGrid from './components/ClusterGrid'
-import FlowGraph from './components/FlowGraph/FlowGraph'
+import FlowGraph from './components/CollapsiblePanel/CollapsiblePanel'
 import Toolbar from '@mui/material/Toolbar';
+import CollapsiblePanel from './components/CollapsiblePanel/CollapsiblePanel';
 
 function App() {
   const [clusterQuery, setClusterQuery] = useState("");
@@ -108,11 +109,9 @@ function App() {
   return (
     <>
       <Navbar/>
-      <FlowGraph/>
-      <div>
-        <HeroSection clusterQuery={clusterQuery} setClusterQuery={setClusterQuery}/>
-        <ClusterGrid clusters={filteredClusters} setClusters={setClusters} addCluster={addCluster}/>
-      </div>
+      <CollapsiblePanel clusters={clusters}/>
+      <HeroSection clusterQuery={clusterQuery} setClusterQuery={setClusterQuery}/>
+      <ClusterGrid clusters={filteredClusters} setClusters={setClusters} addCluster={addCluster}/>
     </>
   )
 }

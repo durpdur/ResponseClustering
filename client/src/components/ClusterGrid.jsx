@@ -2,7 +2,7 @@ import { Box, Typography, Grid, Stack } from "@mui/material";
 import Cluster from "./Cluster/Cluster";
 import AddIcon from '@mui/icons-material/Add';
 
-function ClusterGrid({clusters, setClusters, addCluster}) {
+function ClusterGrid({ clusters, setClusters, addCluster }) {
 
 
     return (
@@ -12,7 +12,7 @@ function ClusterGrid({clusters, setClusters, addCluster}) {
             sx={{ margin: "5vw" }}
         >
             {/* Add Cluster Button */}
-            <Grid size={{xs: 2, sm: 4, md: 4}}>
+            {/* <Grid size={{xs: 2, sm: 4, md: 4}}>
                     <Box 
                         onClick={addCluster}
                         sx={{
@@ -36,7 +36,7 @@ function ClusterGrid({clusters, setClusters, addCluster}) {
                             <AddIcon/><Typography variant="h5" >Add Cluster</Typography>
                         </Stack>
                     </Box>
-            </Grid>
+            </Grid> */}
             
             {/* Cluster mapping */}
             {clusters.map((c, index) => (
