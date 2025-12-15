@@ -1,7 +1,16 @@
 import { ReactFlow, Background, Controls } from '@xyflow/react';
 import { useMemo } from 'react';
 
-// COLOR STYLING LOGIC
+import ColorNode from './ColorNode/ColorNode';
+
+// CUSTOM NODE COMPONENT LOGIC
+const nodeTypes = {
+  colorNode: ColorNode,
+};
+
+/********************
+COLOR STYLING LOGIC 
+*********************/
 /*
 function pastelSLForHue
   - Breakpoints for color in HSL for major color groups
@@ -38,63 +47,72 @@ function queryToPastelColorHash(query) {
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
-// CLUSTER POSITION LOGIC
 
+/*********************
+CLUSTER POSITION LOGIC
+**********************/
 
-// CUSTOM NODE LOGIC
-/* 
-  function ColorNode
-    - Custom styling for nodes
-*/
-function ColorNode({ data }) {
-  return (
-    <div
-      style={{
-        padding: "10px",
-        borderRadius: "10em",
-        background: data.color,
-        color: "black",
-        fontFamily: '"Google Sans Code", "Lato", sans-serif',
-        border: data.isMedoid ? "5px solid #e2e2e2" : "1px solid #e2e2e2",
-      }}
-    >
-      {data.label}
-    </div>
-  );
+function clusterPositionGridLayout(clusterIndex, numOfClusters) {
+  const COL_SPACING = 800;
+  const ROW_SPACING = 800;
+  
+  const GRID_SIZE = Math.ceil(Math.sqrt(numOfClusters));
+
+  const medoidX = clusterIndex % GRID_SIZE * ROW_SPACING;
+  const medoidY = Math.floor(clusterIndex / GRID_SIZE) * COL_SPACING;
+
+  return [medoidX, medoidY];
 }
 
-const nodeTypes = {
-  colorNode: ColorNode,
-};
+function otherItemPositionRadialLayout(medoidX, medoidY, RANDOM_STARTING_POS, itemIndex, numOfOtherItems) {
+  const MAX_RADIUS = 250;
+  const MIN_RADIUS = 150;
+  const RADIUS = MIN_RADIUS + (MAX_RADIUS - MIN_RADIUS) * Math.random();
+  const ANGLE_SEG = 2 * Math.PI / numOfOtherItems;
+
+  const angle = RANDOM_STARTING_POS + itemIndex * ANGLE_SEG;
+  const itemX = medoidX + Math.sin(angle) * RADIUS;
+  const itemY = medoidY + Math.cos(angle) * RADIUS;
+
+  return [itemX, itemY];
+}
 
 
+
+// REACT COMPONENT
 function FlowGraph({ clusters }) {
-
   const nodes = useMemo(() => {
+    const numOfClusters = clusters.length; // Total number of clusters based off of medoid
+
     return clusters.flatMap((c, clusterIndex) => {
-      const medoidX = 0;
-      const medoidY = clusterIndex * 100;
+      const clusterColor = queryToPastelColorHash(`${c.cluster_id}-medoid`);
+      const [medoidX, medoidY] = clusterPositionGridLayout(clusterIndex, numOfClusters);
+      const numOfOtherItems = c.other_items_in_cluster.length;
+      const RANDOM_RADIAL_ROTATION = Math.random() * Math.PI;
 
       const medoidNode = {
         id: `${c.cluster_id}-medoid`,
         type: 'colorNode',
         data: {
-          label: c.representative_medoid_item.prompt,
-          color: queryToPastelColorHash(`${c.cluster_id}-medoid`),
+          label: `${c.representative_medoid_item.prompt}`,
+          color: clusterColor,
           isMedoid: true,
         },
         position: {x: medoidX, y: medoidY},
       }
 
-      const itemNodes = c.other_items_in_cluster.map((item, itemIndex) => ({
-        id: `${c.cluster_id}-item${itemIndex}`,
-        type: 'colorNode',
-        data: {
-          label: item.prompt,
-          color: queryToPastelColorHash(`${c.cluster_id}-medoid`),
-        },
-        position: {x: medoidX + (itemIndex + 1) * 150, y: medoidY},
-      }));
+      const itemNodes = c.other_items_in_cluster.map((item, itemIndex) => {
+        const [itemX, itemY] = otherItemPositionRadialLayout(medoidX, medoidY, RANDOM_RADIAL_ROTATION, itemIndex, numOfOtherItems)
+        return {
+          id: `${c.cluster_id}-item${itemIndex}`,
+          type: 'colorNode',
+          data: {
+            label: item.prompt,
+            color: clusterColor,
+          },
+          position: {x: itemX, y: itemY},
+        };
+      });
 
       return [
         medoidNode,

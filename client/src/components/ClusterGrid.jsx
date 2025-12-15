@@ -1,6 +1,6 @@
 import { Box, Typography, Grid, Stack } from "@mui/material";
-import Cluster from "./Cluster/Cluster";
 import AddIcon from '@mui/icons-material/Add';
+import ClusterCard from "./ClusterCard/ClusterCard";
 
 function ClusterGrid({ clusters, setClusters, addCluster }) {
 
@@ -41,7 +41,7 @@ function ClusterGrid({ clusters, setClusters, addCluster }) {
             {/* Cluster mapping */}
             {clusters.map((c, index) => (
                 <Grid key={index} size={{xs: 2, sm: 4, md: 4}}>
-                    <Cluster
+                    <ClusterCard
                         title={c.cluster_id}
                         representative_mediod={c.representative_medoid_item}
                         other_items={c.other_items_in_cluster}

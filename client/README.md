@@ -3,10 +3,11 @@ App.jsx
 - Navbar
 - HeroSection
 - ClusterGrid
-    - Clusters
+    - ClusterCard
         - Hover Card
 
 - Flow Graph
+    - ColorNode
 
 # TODO
 - Add graph using "medoid_item"

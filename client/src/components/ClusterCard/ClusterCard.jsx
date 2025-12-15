@@ -1,9 +1,9 @@
 import { Box, Typography, Stack } from "@mui/material";
 import logo from "../../assets/logo.svg"
 import HoverCard from "../HoverCard/HoverCard";
-import styles from "./Cluster.module.css";
+import styles from "./ClusterCard.module.css";
 
-function Cluster({ title, representative_mediod, other_items, query }) {
+function ClusterCard({ title, representative_mediod, other_items, query }) {
     return (
         <Box
             className={styles.wrapper}
@@ -66,4 +66,4 @@ function Cluster({ title, representative_mediod, other_items, query }) {
     )
 }
 
-export default Cluster
+export default ClusterCard

@@ -5,13 +5,12 @@ import '@xyflow/react/dist/style.css';
 import Navbar from './components/Navbar/Navbar'
 import HeroSection from './components/HeroSection'
 import ClusterGrid from './components/ClusterGrid'
-import FlowGraph from './components/CollapsiblePanel/CollapsiblePanel'
-import Toolbar from '@mui/material/Toolbar';
 import CollapsiblePanel from './components/CollapsiblePanel/CollapsiblePanel';
 
 function App() {
   const [clusterQuery, setClusterQuery] = useState("");
   const [clusters, setClusters] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   /*
     Fetch Data
@@ -21,12 +20,17 @@ function App() {
     Sets state
   */
   useEffect(() => {
-    fetch("https://690af3a01a446bb9cc248e2b.mockapi.io/query")
-      .then(res => res.json())
-      .then(data => {
+    async function load() {
+      try {
+        const res = await fetch("https://690af3a01a446bb9cc248e2b.mockapi.io/query");
+        const data = await res.json();
         const parsedClusters = parseIntoClusters(data);
         setClusters(parsedClusters);
-      });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    load();
   }, []);
 
   /*
