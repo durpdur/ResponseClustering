@@ -78,7 +78,7 @@ function otherItemPositionRadialLayout
 */
 function otherItemPositionRadialLayout(medoidX, medoidY, RANDOM_RADIAN_STARTING_POS, itemIndex, numOfOtherItems) {
   const MAX_RADIUS = 250;
-  const MIN_RADIUS = 150;
+  const MIN_RADIUS = 175;
   const RADIUS = MIN_RADIUS + (MAX_RADIUS - MIN_RADIUS) * Math.random();
   const ANGLE_SEG = 2 * Math.PI / numOfOtherItems;
 
@@ -89,13 +89,15 @@ function otherItemPositionRadialLayout(medoidX, medoidY, RANDOM_RADIAN_STARTING_
   return [itemX, itemY, angle];
 }
 
-/**********************
+/*********************************
  EDGE CONNECTION LOGIC
-***********************/
+**********************************/
 /* function angleToEdgeSourceTargetId
   - Maps the geometric angle to the correct handle on the Medoid (source) 
     and the Item (target).
-  - Normalizes angle to 0-2PI range first.
+  - Normalizes angle to 0-2PI range first
+  RETURN
+  - [item, medoid]
 */
 function angleToEdgeSourceTargetId(angle) {
   const twoPi = 2 * Math.PI;
@@ -166,7 +168,8 @@ function FlowGraph({ clusters, focusedClusterId }) {
       */ 
       c.other_items_in_cluster.forEach((item, itemIndex) => {
         const [itemX, itemY, angle] = otherItemPositionRadialLayout(medoidX, medoidY, RANDOM_RADIAN_ROTATION, itemIndex, numOfOtherItems);
-        const [edgeSourceId, edgeTargetId] = angleToEdgeSourceTargetId(angle);
+        const [sourceHandleId, targetHandleId] = angleToEdgeSourceTargetId(angle);
+        const connectedSide = targetHandleId.split("_")[1];
 
         const itemId = `${c.cluster_id}Item${itemIndex}`;
         nodes.push({
@@ -175,6 +178,7 @@ function FlowGraph({ clusters, focusedClusterId }) {
           data: {
             label: item.prompt,
             color: clusterColor,
+            connectedSide: connectedSide,
           },
           position: { x: itemX, y: itemY },
         });
@@ -183,8 +187,8 @@ function FlowGraph({ clusters, focusedClusterId }) {
           id: `${medoidId}-to-${itemId}`,
           source: medoidId,
           target: itemId,
-          sourceHandle: edgeSourceId,
-          targetHandle: edgeTargetId,
+          sourceHandle: sourceHandleId,
+          targetHandle: targetHandleId,
         });
       });
     });
@@ -193,7 +197,6 @@ function FlowGraph({ clusters, focusedClusterId }) {
   }, [clusters]);
 
   // Initializes view on the first cluster
-  // setCenter will center the viewport on a given position Passing in a duration wil animate the viewport to a new position
   const handleFlowInit = (instance) => {
     instance.setViewport({x: 250, y: 400, zoom: 0.9});
   }
