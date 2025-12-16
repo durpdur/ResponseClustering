@@ -1,26 +1,24 @@
 import styles from "./CollapsiblePanel.module.css"
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { useState } from 'react';
 
 import FlowGraph from '../FlowGraph/FlowGraph';
 
-function CollapsiblePanel({ clusters }) {
-  const [isClosed, setIsClosed] = useState(false);
+function CollapsiblePanel({ clusters, isPanelClosed, setIsPanelClosed, focusedClusterId }) {
 
   return (
-    <div className={`${styles.wrapper} ${isClosed ? styles.hide_graph : ""}`} >
+    <div className={`${styles.wrapper} ${isPanelClosed ? styles.hide_graph : ""}`} >
       <div className={styles.inner}>
         <div 
-          className={`${styles.collapse_button} ${isClosed ? styles.change_collapse_button : ""}`}
-          onClick={() => setIsClosed(!isClosed)}
+          className={`${styles.collapse_button} ${isPanelClosed ? styles.change_collapse_button : ""}`}
+          onClick={() => setIsPanelClosed(!isPanelClosed)}
         >
-          <div className={`${styles.arrow_icon} ${isClosed ? styles.change_arrow_icon : ""}`}>
+          <div className={`${styles.arrow_icon} ${isPanelClosed ? styles.change_arrow_icon : ""}`}>
             <KeyboardDoubleArrowRightIcon/>
           </div>
         </div>
 
         <div className={styles.graph}>
-          <FlowGraph clusters={clusters}/>
+          <FlowGraph clusters={clusters} focusedClusterId={focusedClusterId}/>
         </div>
       </div>
     </div>

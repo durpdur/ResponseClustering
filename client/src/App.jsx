@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
+import { ReactFlowProvider } from '@xyflow/react';
 import './App.css'
 import '@xyflow/react/dist/style.css';
 
@@ -8,9 +9,11 @@ import ClusterGrid from './components/ClusterGrid'
 import CollapsiblePanel from './components/CollapsiblePanel/CollapsiblePanel';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [clusterQuery, setClusterQuery] = useState("");
   const [clusters, setClusters] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [focusedClusterId, setFocusedClusterId] = useState(null);
+  const [isCollapsiblePanelClosed, setIsCollapsiblePanelClosed] = useState(true);
 
   /*
     Fetch Data
@@ -112,10 +115,22 @@ function App() {
 
   return (
     <>
-      <Navbar/>
-      <CollapsiblePanel clusters={clusters}/>
-      <HeroSection clusterQuery={clusterQuery} setClusterQuery={setClusterQuery}/>
-      <ClusterGrid clusters={filteredClusters} setClusters={setClusters} addCluster={addCluster}/>
+      <ReactFlowProvider>
+        <Navbar/>
+        <CollapsiblePanel
+          clusters={clusters}
+          isPanelClosed={isCollapsiblePanelClosed}
+          setIsPanelClosed={setIsCollapsiblePanelClosed}
+          focusedClusterId={focusedClusterId}
+        />
+        <HeroSection clusterQuery={clusterQuery} setClusterQuery={setClusterQuery}/>
+        <ClusterGrid 
+          clusters={filteredClusters} 
+          setFocusedClusterId={setFocusedClusterId}
+          isPanelClosed={isCollapsiblePanelClosed}
+          setIsPanelClosed={setIsCollapsiblePanelClosed}
+        />
+      </ReactFlowProvider>
     </>
   )
 }

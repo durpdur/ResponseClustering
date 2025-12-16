@@ -1,10 +1,8 @@
 import { Box, Typography, Grid, Stack } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+// import AddIcon from '@mui/icons-material/Add';
 import ClusterCard from "./ClusterCard/ClusterCard";
 
-function ClusterGrid({ clusters, setClusters, addCluster }) {
-
-
+function ClusterGrid({ clusters, setFocusedClusterId, isPanelClosed, setIsPanelClosed }) {
     return (
         <Grid container 
             spacing={{ xs: 2, md: 3 }} 
@@ -41,12 +39,19 @@ function ClusterGrid({ clusters, setClusters, addCluster }) {
             {/* Cluster mapping */}
             {clusters.map((c, index) => (
                 <Grid key={index} size={{xs: 2, sm: 4, md: 4}}>
-                    <ClusterCard
-                        title={c.cluster_id}
-                        representative_mediod={c.representative_medoid_item}
-                        other_items={c.other_items_in_cluster}
-                        query={c.query}
-                    />
+                    <div 
+                        onClick={() => {
+                            if (isPanelClosed) {setIsPanelClosed(!isPanelClosed);}
+                            setFocusedClusterId(c.cluster_id);
+                        }}
+                    >
+                        <ClusterCard
+                            title={c.cluster_id}
+                            representative_mediod={c.representative_medoid_item}
+                            other_items={c.other_items_in_cluster}
+                            query={c.query}
+                        />
+                    </div>
                 </Grid>
             ))}
         </Grid>
