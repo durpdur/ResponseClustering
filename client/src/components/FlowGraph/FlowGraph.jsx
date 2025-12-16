@@ -198,8 +198,13 @@ function FlowGraph({ clusters, focusedClusterId }) {
 
   // Initializes view on the first cluster
   const handleFlowInit = (instance) => {
-    instance.setViewport({x: 250, y: 400, zoom: 0.9});
-  }
+    if (clusters.length > 0) {
+      const [medoidX, medoidY] = clusterPositionGridLayout(0, clusters.length);
+      instance.setCenter(medoidX, medoidY, { zoom: 0.9 });
+    } else {
+      instance.setViewport({ x: 0, y: 0, zoom: 0.9 });
+    }
+  };
 
   // Centers on cluster
   useEffect(() => {

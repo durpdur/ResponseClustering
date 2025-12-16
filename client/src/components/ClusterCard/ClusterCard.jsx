@@ -3,7 +3,7 @@ import logo from "../../assets/logo.svg"
 import HoverCard from "../HoverCard/HoverCard";
 import styles from "./ClusterCard.module.css";
 
-function ClusterCard({ title, representative_mediod, other_items, query }) {
+function ClusterCard({ other_items, cluster, cardIndex }) {
     return (
         <Box
             className={styles.wrapper}
@@ -26,41 +26,45 @@ function ClusterCard({ title, representative_mediod, other_items, query }) {
                     variant="h6"
                     sx={{ paddingLeft: "0.3em", }}
                 >
-                    {title}
+                    {cluster.cluster_id}
                 </Typography>
             </Stack>
 
-            <Typography variant="body2" fontWeight={100}>
-                {representative_mediod.prompt} : {representative_mediod.result}
-            </Typography>
+            <Box display="flex" alignItems="center">
+                <Typography variant="body2" fontWeight={600} sx={{ mr: 1 }}> {"query:"} </Typography>
+                <Typography variant="body2" fontWeight={100}>{cluster.query}</Typography>
+            </Box>
 
-            {/* Other items in cluster mapping */}    
-            {other_items && other_items.length > 0 && (
+            <Box sx={{ marginTop: "0.5em" }}>
+                <Typography variant="body2" fontWeight={600}>representative_medoid:</Typography>
+                <Typography variant="body2" fontWeight={100}>
+                    <strong>{cluster.representative_medoid_item.prompt}</strong> : {cluster.representative_medoid_item.result}
+                </Typography>
+            </Box>
+            
+
+            {/* Other items in cluster*/}    
+            {cluster.other_items_in_cluster && cluster.other_items_in_cluster.length > 0 && (
                 <Box sx={{ marginTop: "0.5em" }}>
                     <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 0.5 }}>
-                        Clustered Items:
+                        other_items_in_cluster:
                     </Typography>
 
-                    {other_items.map((item, i) => (
+                    {cluster.other_items_in_cluster.map((item, i) => (
                         <Typography
                         key={i}
                         variant="body2"
                         fontWeight={100}
                         sx={{ ml: 1 }}
                         >
-                            • {item.prompt} : {item.result}
+                            - <strong>{item.prompt}</strong> : {item.result}
                         </Typography>
                     ))}
                 </Box>
             )}
 
             <div className={styles.hoverCardWrapper}>
-                <HoverCard
-                    title={title}
-                    representative_mediod={representative_mediod}
-                    other_items={other_items}
-                    query={query}
-                />
+                <HoverCard/>
             </div>
         </Box>
     )

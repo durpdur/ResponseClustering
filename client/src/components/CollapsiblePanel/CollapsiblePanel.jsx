@@ -4,7 +4,6 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import FlowGraph from '../FlowGraph/FlowGraph';
 
 function CollapsiblePanel({ clusters, isPanelClosed, setIsPanelClosed, focusedClusterId }) {
-
   return (
     <div className={`${styles.wrapper} ${isPanelClosed ? styles.hide_graph : ""}`} >
       <div className={styles.inner}>
@@ -16,9 +15,9 @@ function CollapsiblePanel({ clusters, isPanelClosed, setIsPanelClosed, focusedCl
             <KeyboardDoubleArrowRightIcon/>
           </div>
         </div>
-
+        
         <div className={styles.graph}>
-          <FlowGraph clusters={clusters} focusedClusterId={focusedClusterId}/>
+          <FlowGraph clusters={clusters} focusedClusterId={focusedClusterId} />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { Box, Typography, Grid, Stack } from "@mui/material";
 // import AddIcon from '@mui/icons-material/Add';
 import ClusterCard from "./ClusterCard/ClusterCard";
 
-function ClusterGrid({ clusters, setFocusedClusterId, isPanelClosed, setIsPanelClosed }) {
+function ClusterGrid({ clusters, setFocusedClusterId, isPanelClosed, setIsPanelClosed, isLoading }) {
     return (
         <Grid container 
             spacing={{ xs: 2, md: 3 }} 
@@ -35,9 +35,33 @@ function ClusterGrid({ clusters, setFocusedClusterId, isPanelClosed, setIsPanelC
                         </Stack>
                     </Box>
             </Grid> */}
+
+            {/* Loading State */}
+            {isLoading && (
+                <Grid item size={{xs: 2, sm: 4, md: 4}}>
+                    <Box
+                        sx={{
+                            minHeight: "20vh",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "2px dashed #e2e2e2", 
+                            color: '#e2e2e2',
+                            borderRadius: "6px", 
+                            padding: "1em",
+                            '&:hover': {
+                                borderColor: 'black',
+                                color: 'black',
+                            }
+                        }}
+                    >
+                        <Typography variant="h6">Loading…</Typography>
+                    </Box>
+                </Grid>
+            )}
             
             {/* Cluster mapping */}
-            {clusters.map((c, index) => (
+            {!isLoading && clusters.map((c, index) => (
                 <Grid key={index} size={{xs: 2, sm: 4, md: 4}}>
                     <div 
                         onClick={() => {
@@ -49,7 +73,8 @@ function ClusterGrid({ clusters, setFocusedClusterId, isPanelClosed, setIsPanelC
                             title={c.cluster_id}
                             representative_mediod={c.representative_medoid_item}
                             other_items={c.other_items_in_cluster}
-                            query={c.query}
+                            cluster={c}
+                            cardIndex={index}
                         />
                     </div>
                 </Grid>

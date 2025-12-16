@@ -64,6 +64,7 @@ function App() {
         query: data.query
       }));
     }
+
     return apiClusters;
   }
 
@@ -129,6 +130,7 @@ function App() {
           setFocusedClusterId={setFocusedClusterId}
           isPanelClosed={isCollapsiblePanelClosed}
           setIsPanelClosed={setIsCollapsiblePanelClosed}
+          isLoading={isLoading}
         />
       </ReactFlowProvider>
     </>
