@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar'
 import HeroSection from './components/HeroSection'
 import ClusterGrid from './components/ClusterGrid'
 import CollapsiblePanel from './components/CollapsiblePanel/CollapsiblePanel';
+import KeyboardListener from './components/KeyboardListener/KeyboardListener';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -131,6 +132,10 @@ function App() {
           isPanelClosed={isCollapsiblePanelClosed}
           setIsPanelClosed={setIsCollapsiblePanelClosed}
           isLoading={isLoading}
+        />
+        <KeyboardListener
+          isCollapsiblePanelClosed={isCollapsiblePanelClosed}
+          setIsCollapsiblePanelClosed={setIsCollapsiblePanelClosed}
         />
       </ReactFlowProvider>
     </>
